@@ -7,8 +7,9 @@ import {Button, Text, View} from 'react-native';
 
 function App() {
   const [name, setName] = useState('Himanshu');
+  let data = 'Rahul';
 
-  const messageHandler = () => {
+  const messageHandler1 = () => {
     // console.warn('Press Here is clicked');
     if (name === 'Himanshu') {
       // console.warn('if ');
@@ -19,29 +20,33 @@ function App() {
     }
   };
 
-  const errorHandler = (err: string) => {
-    console.warn(err);
+  const messageHandler2 = () => {
+    if (data === 'Rahul') {
+      console.warn(data);
+      data = 'Mor';
+    } else {
+      console.warn(data);
+      data = 'Rahul';
+    }
   };
+
   return (
     <View>
       <Text style={{textAlign: 'center', fontSize: 20}}>
-        Button and onPress Event :-
+        State in React-Native :-
       </Text>
-      <Text style={{textAlign: 'center', fontSize: 30}}> Button 1</Text>
-      <Text style={{textAlign: 'center', fontSize: 20}}> Name :- {name}</Text>
-      <Button
-        title="Press Here to Update Name"
-        onPress={messageHandler}
-        color={'green'}
-      />
-      {/* <Button title="Press Here" onPress={messageHandler()} color={'green'} /> --> We can not do this as it will called immediately when page UI is render and function is not bind using this type of declaration*/}
 
-      <Text style={{textAlign: 'center', fontSize: 30}}> Button 2</Text>
-      <Button
-        title="Press Here"
-        onPress={() => errorHandler('Some Message')}
-        color={'red'}
-      />
+      <Text style={{textAlign: 'center', fontSize: 20}}> Name :- {name}</Text>
+      <Text style={{textAlign: 'center', fontSize: 10}}>
+        Name updated through State
+      </Text>
+      <Button title="Update Name" onPress={messageHandler1} color={'green'} />
+
+      <Text style={{textAlign: 'center', fontSize: 20}}> Name :- {data}</Text>
+      <Text style={{textAlign: 'center', fontSize: 10}}>
+        Name updated through variable
+      </Text>
+      <Button title="Update Name" onPress={messageHandler2} color={'blue'} />
     </View>
   );
 }
