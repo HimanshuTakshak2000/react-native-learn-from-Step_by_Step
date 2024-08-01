@@ -1,31 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
-import {Button, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 
+const age = 20;
+function f2() {
+  return 'f2 function is called';
+}
 function App() {
+  const name = 'Himanshu';
   return (
-    /* text -
-    <Text>Hello</Text>
-    // <Text></Text> // When we will use this we will get an error as it must we wrapped inside the view component
-    */
-
-    // //  View -
-    // <View>
-    //   <Text style={{fontSize: 30, textAlign: 'center'}}> Hello World</Text>
-    //   <Text style={{fontSize: 20, textAlign: 'center'}}> What up </Text>
-    //   {/* If we try to write text directly inside the view component. Wewill get error. */}
-    // </View>
-
-    /* <View>
-    //   text ---> This will give an error.
-    </View> */
-
-    //  Button -
+    // JSX :- It is javaScript Extension which allow use to write HTML Tag inside the Js code.
     <View>
-      <Text style={{fontSize: 30, textAlign: 'center'}}> Hello World</Text>
-      <Button title="Press Here" />
-      {/* What is difference between HTML tag and a Component in react-native :- First letter of the component is also capital letter and where as first letter of the HTML tag is small letter. */}
+      <Text style={{fontSize: 30, textAlign: 'center'}}>Name :- {name}</Text>
+      <Text style={{fontSize: 30, textAlign: 'center'}}>Age :- {age}</Text>
+      <Text style={{fontSize: 30, textAlign: 'center'}}>
+        Calling the function :- {f2()}
+      </Text>
+      <Text style={{fontSize: 30, textAlign: 'center'}}>
+        applying condition(is age greater than 18) :-
+        {age > 18 ? 'True' : 'False'}
+      </Text>
     </View>
   );
 }
