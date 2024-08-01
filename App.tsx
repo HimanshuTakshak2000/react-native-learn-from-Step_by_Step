@@ -2,25 +2,23 @@
 import React from 'react';
 
 import {Text, View} from 'react-native';
+import UserData from './Components/UserData';
+import CompanyData from './Components/CompanyData';
 
-const age = 20;
-function f2() {
-  return 'f2 function is called';
-}
+// Component in JS :-
+
 function App() {
-  const name = 'Himanshu';
   return (
-    // JSX :- It is javaScript Extension which allow use to write HTML Tag inside the Js code.
     <View>
-      <Text style={{fontSize: 30, textAlign: 'center'}}>Name :- {name}</Text>
-      <Text style={{fontSize: 30, textAlign: 'center'}}>Age :- {age}</Text>
+      <Text style={{fontSize: 30, textAlign: 'center'}}>Component :-</Text>
       <Text style={{fontSize: 30, textAlign: 'center'}}>
-        Calling the function :- {f2()}
+        UserData Component
       </Text>
+      <UserData />
       <Text style={{fontSize: 30, textAlign: 'center'}}>
-        applying condition(is age greater than 18) :-
-        {age > 18 ? 'True' : 'False'}
+        CompanyData Component
       </Text>
+      <CompanyData />
     </View>
   );
 }
