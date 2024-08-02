@@ -18,6 +18,12 @@ export default AppStyleSheet = StyleSheet.create({
     textBox1:{
         fontSize:20,
         textAlign:'center'
+    },
+    textBox3:{
+        borderRadius:8, 
+        borderWidth:2,
+        height:60,
+        textAlignVertical:'center',
     }
 
 });

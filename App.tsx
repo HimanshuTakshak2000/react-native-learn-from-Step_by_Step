@@ -22,9 +22,14 @@ function App() {
       <Text style={internalStyle.textBox1}>Some Text </Text>
 
       <Text></Text>
-      
+
       <Text style={AppStyleSheet.textBox1}>External Style -</Text>
       <Text style={AppStyleSheet.textBox2}>Some Text </Text>
+
+      <Text></Text>
+      
+      <Text style={AppStyleSheet.textBox1}>All Style(inline, external and internal) -</Text>
+      <Text style={[AppStyleSheet.textBox3,internalStyle.textBox3,{fontSize:10, textAlign:'center'}]}>Some Text </Text>
 
     </View>
   );
@@ -48,6 +53,14 @@ const internalStyle = StyleSheet.create({
   textBox2:{
     fontSize:20,
     textAlign:'center'
+  },
+
+  textBox3:{
+    backgroundColor:'purple', 
+    color:'orange', 
+    margin:10,
+    padding:10, 
+    borderColor:'green',
   }
 })
 
