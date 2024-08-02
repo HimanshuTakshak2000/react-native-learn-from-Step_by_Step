@@ -1,93 +1,54 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
-import {Button, Text, View} from 'react-native';
-import UserData from './Components/UserData';
-import CompanyData from './Components/CompanyData';
-import StudentData from './Components/StudentData';
+import {Text, View,StyleSheet} from 'react-native';
+import AppStyleSheet from './Style/AppStyleSheet';
 
-// Button and onPress event in JS :-
+// Inline, internal and external style in react-native :-
 
 function App() {
-  const [name, setName] = useState('Himanshu');
-  const [data,setData] = useState(23615);
-  const [cName, setcName] = useState('DeepOrion')
-
-  const messageHandler1 = () => {
-    // console.warn('Press Here is clicked');
-    if (name === 'Himanshu') {
-      // console.warn('if ');
-      setName('Takshak');
-    } else {
-      // console.warn('els');
-      setName('Himanshu');
-    }
-  };
-
-  const messageHandler2 = () => {
-    // console.warn('Press Here is clicked');
-    if (cName === 'DeepOrion') {
-      // console.warn('if ');
-      setcName('TCS');
-    } else {
-      // console.warn('els');
-      setcName('DeepOrion');
-    }
-  };
-
-  const messageHandler3 = () => {
-    if (data === 23615) {
-      
-      setData(23576);
-      
-    } else {
-      
-      setData(23615);
-     
-    }
-  };
+  
 
   return (
     <View>
-      <Text style={{textAlign: 'center', fontSize: 20}}>
-        Prop in React-Native :-
-      </Text>
+      <Text style={{fontSize:25, textAlign:'center'}}>Inline, Internal and External Style in React-Native :- </Text>
+      <Text></Text>
+      <Text style={{fontSize:25, textAlign:'center'}}>Inline Style -</Text>
+      <Text style={{fontSize:25, textAlign:'center', backgroundColor:'skyblue', color:'red', borderColor:'white', margin:15,padding:5, borderRadius:8, borderWidth:2 }}>Some Text </Text>
 
       <Text></Text>
 
-      <Text style={{textAlign: 'center', fontSize: 20}}> Name :- {name}</Text>
-      <Text style={{textAlign: 'center', fontSize: 10}}>
-        Name updated through State
-      </Text>
-      <Button title="Update Name" onPress={messageHandler1} color={'green'} />
-
-      <Text style={{textAlign: 'center', fontSize: 20}}> Using Prop in child component :-</Text>
-      <UserData name = {name} age = '24' phoneNo = '9466305532' />
+      <Text style={internalStyle.textBox2}>Internal Style -</Text>
+      <Text style={internalStyle.textBox1}>Some Text </Text>
 
       <Text></Text>
-
-      <Text style={{textAlign: 'center', fontSize: 20}}>Company Name :- {cName}</Text>
-      <Text style={{textAlign: 'center', fontSize: 10}}>
-        Company Name updated through State
-      </Text>
-      <Button title="Update Company Name" onPress={()=>messageHandler2()} color={'red'} />
-
-      <Text style={{textAlign: 'center', fontSize: 20}}> Using Prop in child component :-</Text>
-      <CompanyData cname = {cName} empId = '11223301' empName = 'Rahul Mor' />
-
-      <Text></Text>
-
-      <Text style={{textAlign: 'center', fontSize: 20}}>Student Id :- {data}</Text>
-      <Text style={{textAlign: 'center', fontSize: 10}}>
-        Student Name updated through State
-      </Text>
-      <Button title="Update Student Name" onPress={messageHandler3} color={"gray"} />
-
-      <Text style={{textAlign: 'center', fontSize: 20}}> Using Prop in child component :-</Text>
-      <StudentData stdId = {data} stdName = 'Vinay Kumar' age = '23' />
+      
+      <Text style={AppStyleSheet.textBox1}>External Style -</Text>
+      <Text style={AppStyleSheet.textBox2}>Some Text </Text>
 
     </View>
   );
 }
+
+const internalStyle = StyleSheet.create({
+  textBox1:{
+    fontSize:25, 
+    backgroundColor:'blue', 
+    color:'pink', 
+    borderColor:'red',
+    margin:15,
+    padding:5, 
+    borderRadius:8, 
+    borderWidth:2,
+    height:100,
+    textAlignVertical:'center',
+    textAlign:'center'
+  },
+
+  textBox2:{
+    fontSize:20,
+    textAlign:'center'
+  }
+})
 
 export default App;
