@@ -1,35 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
-import {Text, View,StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
 import AppStyleSheet from './Style/AppStyleSheet';
 
 // Inline, internal and external style in react-native :-
 
 function App() {
   
+  const [name, setName] = useState("");
 
   return (
     <View>
-      <Text style={{fontSize:25, textAlign:'center'}}>Inline, Internal and External Style in React-Native :- </Text>
-      <Text></Text>
-      <Text style={{fontSize:25, textAlign:'center'}}>Inline Style -</Text>
-      <Text style={{fontSize:25, textAlign:'center', backgroundColor:'skyblue', color:'red', borderColor:'white', margin:15,padding:5, borderRadius:8, borderWidth:2 }}>Some Text </Text>
-
+      <Text style={{fontSize:25, textAlign:'center'}}>Input Box in React-Native :-</Text>
       <Text></Text>
 
-      <Text style={internalStyle.textBox2}>Internal Style -</Text>
-      <Text style={internalStyle.textBox1}>Some Text </Text>
+      <Text style={internalStyle.nameTextBox}>Name</Text>
+      <TextInput placeholder='Enter Name' style={AppStyleSheet.nameInputBox} value={name} onChangeText={(text)=> setName(text)}/>
 
       <Text></Text>
-
-      <Text style={AppStyleSheet.textBox1}>External Style -</Text>
-      <Text style={AppStyleSheet.textBox2}>Some Text </Text>
-
-      <Text></Text>
-      
-      <Text style={AppStyleSheet.textBox1}>All Style(inline, external and internal) -</Text>
-      <Text style={[AppStyleSheet.textBox3,internalStyle.textBox3,{fontSize:10, textAlign:'center'}]}>Some Text </Text>
+      <Text style={{fontSize:25}}>Name is {name}</Text>
+      <Button title='Reset Button' onPress={()=>{setName("")}}/>
 
     </View>
   );
@@ -61,6 +52,13 @@ const internalStyle = StyleSheet.create({
     margin:10,
     padding:10, 
     borderColor:'green',
+  },
+
+  nameTextBox:{
+    fontSize:30,
+    color:'lightblue',
+    margin:5
+
   }
 })
 
