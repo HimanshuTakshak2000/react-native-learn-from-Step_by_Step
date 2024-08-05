@@ -1,65 +1,130 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
+import {Text, View, TextInput, Button,StyleSheet} from 'react-native';
 import AppStyleSheet from './Style/AppStyleSheet';
 
-// Inline, internal and external style in react-native :-
+// Form in react-native :-
 
 function App() {
   
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [display, setDisplay] = useState(false);
+  const [passwordText, setPasswordText] = useState('Show');
+  const [secureTextEntryStatus, setSecureTextEntryStatus] = useState(true);
+  const [buttonDisplay, setButtonDisplay] = useState(true);
 
+  function handleSubmit(){
+    // if(display === false){
+    //   setDisplay(true);
+    //   // setEmail('');
+    //   // setName('');
+    //   // setPassword('');
+    // }
+    // else{
+    //   setDisplay(false);
+    // }
+    
+    setDisplay(true);
+    setButtonDisplay(false);
+  }
+
+
+  const handleClear = function(){
+    setDisplay(false);
+    setButtonDisplay(true);
+    setEmail('');
+    setName('');
+    setPassword('');
+  }
+
+  const handleToggle = ()=>{
+    if('Show' === passwordText){
+      setPasswordText('Hide');
+      setSecureTextEntryStatus(false);
+    }
+    else{
+      setPasswordText('Show');
+      setSecureTextEntryStatus(true);
+    }
+  }
   return (
     <View>
-      <Text style={{fontSize:25, textAlign:'center'}}>Input Box in React-Native :-</Text>
-      <Text></Text>
+      <Text style={{textAlign:'center', fontSize:40,}}>Application Form</Text>
 
-      <Text style={internalStyle.nameTextBox}>Name</Text>
-      <TextInput placeholder='Enter Name' style={AppStyleSheet.nameInputBox} value={name} onChangeText={(text)=> setName(text)}/>
+      <View style={AppStyleSheet.ViewBox1}>
 
-      <Text></Text>
-      <Text style={{fontSize:25}}>Name is {name}</Text>
-      <Button title='Reset Button' onPress={()=>{setName("")}}/>
+        <View style={AppStyleSheet.ViewBox2}>
+          <Text style={AppStyleSheet.textBox1}>Name</Text>
+          <TextInput style={AppStyleSheet.textInput} placeholder='Enter Name' onChangeText={(text)=> setName(text)} value={name} />
+        </View>
+
+        <View style={AppStyleSheet.ViewBox2}>
+          <Text style={AppStyleSheet.textBox1}>Email</Text>
+          <TextInput style={AppStyleSheet.textInput} placeholder='Enter Email' onChangeText={(text)=> setEmail(text)} value={email} />
+        </View>
+
+        <View style={AppStyleSheet.ViewBox2}>
+          <Text style={AppStyleSheet.textBox1}>Password</Text>
+
+          <View style={internalStyleSheet.flexBoxView}>
+            <TextInput style={AppStyleSheet.passwordInput} placeholder='Enter Password' onChangeText={(text)=> setPassword(text)} value={password} secureTextEntry={secureTextEntryStatus} />
+
+            <Button title={passwordText} onPress={handleToggle}/>
+            
+          </View>
+          
+        </View>
+
+        <View style={AppStyleSheet.ViewBox2}>
+          <View>
+            {buttonDisplay? <Button title='Submit' onPress={handleSubmit}/> : <Button title='clear' onPress={() => handleClear()}/>}
+            
+          </View>
+
+        </View>
+
+        
+        
+      </View>
+
+      {
+        display?
+          <View 
+          style={internalStyleSheet.submitDisplay}
+          >
+            <Text style={AppStyleSheet.textBox1}>Name :- {name}</Text>
+            <Text style={AppStyleSheet.textBox1}>Email :- {email}</Text>
+            <Text style={AppStyleSheet.textBox1}>Password :- {password}</Text>
+          </View>
+          :
+          null
+      }
 
     </View>
   );
+
+  
 }
 
-const internalStyle = StyleSheet.create({
-  textBox1:{
-    fontSize:25, 
-    backgroundColor:'blue', 
-    color:'pink', 
-    borderColor:'red',
-    margin:15,
-    padding:5, 
-    borderRadius:8, 
-    borderWidth:2,
-    height:100,
-    textAlignVertical:'center',
-    textAlign:'center'
+const internalStyleSheet = StyleSheet.create({
+
+  flexBoxView:{
+
+    display:"flex", 
+    flexDirection:'row', 
+    justifyContent:"space-between", 
+    alignItems:"center",
   },
 
-  textBox2:{
-    fontSize:20,
-    textAlign:'center'
-  },
-
-  textBox3:{
-    backgroundColor:'purple', 
-    color:'orange', 
-    margin:10,
-    padding:10, 
-    borderColor:'green',
-  },
-
-  nameTextBox:{
-    fontSize:30,
-    color:'lightblue',
-    margin:5
-
+  submitDisplay:{
+    backgroundColor:"white", 
+    marginTop:10, 
+    padding:10
   }
-})
+});
+
 
 export default App;
