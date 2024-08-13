@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
-import {Text, View, TextInput, Button,StyleSheet} from 'react-native';
+import {Text, View, TextInput, Button,StyleSheet, ScrollView} from 'react-native';
 import AppStyleSheet from './Style/AppStyleSheet';
 
 // Form in react-native :-
@@ -51,7 +51,7 @@ function App() {
     }
   }
   return (
-    <View>
+    <ScrollView>
       <Text style={{textAlign:'center', fontSize:40,}}>Application Form</Text>
 
       <View style={AppStyleSheet.ViewBox1}>
@@ -103,7 +103,7 @@ function App() {
           null
       }
 
-    </View>
+    </ScrollView>
   );
 
   
