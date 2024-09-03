@@ -8,6 +8,8 @@ export default function App() {
           2) To access a DOM element directly.
           3) UseEffect Hook is callled every time as component is update, state is updated or props are updated in the component.
           4) We can also change the value of text input using useRef hook.
+          5) Always use useState to update styles and if it is not possible to do this then use useRef hook to update the style.
+          6) useRef hook must be the last option to change the style of element.
   */
 
 //   // It create a mutable variable which will not re-render the components.
