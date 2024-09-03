@@ -1,68 +1,62 @@
-import React, { useState, useEffect } from 'react'
-import { Button, View,Text } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { Button, View,Text, TextInput } from 'react-native'
 
 export default function App() {
-  const [count, setCount] = useState(0);
-  const [hide, setHide] = useState(false);
 
-  /* 
-  Note :- 1) We can use unlimited useEffect in single functional component.
-          2) useEffect Hook take two argument i.e first is call back function and second is an array.
-          3) useEffect Hook is called every time when state is updated, props are updated or UI is render for the first time. If we want useEffect is only called for the first time when UI is render then we have to use second argument of useEffect i.e an array either an empty array or array with the state in it as it's element.
-          4) This is how useEffect will be called when props are updated. 
-          5) useEffect Hook can be used as unmount when we use a function in return statment.
-          6) Unmounting functionalty is usefull to terminate background function calling like set- timeout and set-interval which in the background.
+  /* useRef
+  Note :- 1) It create a mutable variable which will not re-render the components.
+          2) To access a DOM element directly.
+          3) UseEffect Hook is callled every time as component is update, state is updated or props are updated in the component.
+          4) We can also change the value of text input using useRef hook.
   */
-  useEffect(() => {
-    console.log('called first time')
-  },[])
 
-  useEffect(() => {
-    console.log('******************* called always ************************')
-  },[])
+//   // It create a mutable variable which will not re-render the components.
+//   const [data, setData] = useState('');
+//   const count = useRef(0);
+//   // console.log("count value using useRef :- ",count);
+//   useEffect(()=>{
+//     count.current = count.current+1;
+//   })
 
-  useEffect(() => {
-    console.log('-----------------> called when Count is updated')
-  },[count])
-
-  return (
-    <View style={{margin:20}}>
-      <Button title={`Increase counter :- ${count}`} onPress={()=> setCount(count+1)} />
-      <View>
-        <Text style={{marginTop:10, fontSize:20, marginBottom:10}}>Unmounting of Component using useEffect :-</Text>
-        <Button title={hide?'show Student Component':'Hide Student Component'} onPress={()=> setHide(!hide)} color={'green'} />
-      </View>
-
-      {hide? null:<Student />}
-    </View>
-  )
-}
+//   return (
+//     <View>
+//       <TextInput placeholder='Enter Your Name' value={data} onChangeText={(text)=> setData(text)} style={{borderWidth:2, margin:10, borderColor:'white'}} />
+//       {data !== ''? <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>Name :- {data}</Text>:null}
+//       <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>How many time UI is re-render :- {count.current}</Text>
+//     </View>
+//   )
 
 
-const Student = ()=>{
-
-  let timer = setInterval(()=>{console.warn('Timer called in Student Component')},2000);
-  // useEffect(() => {
-  //   console.log('+++++++++++++ called always in student Component');
-  //   return ()=>{console.log('################ called when component is unmount in student component')}
-  // })
-
-  // useEffect(() => {
-  //   console.log('@@@@@@@@@@@@@@@@@@@@@@@ called first time only in student Component');
-  //   return ()=>{console.log('%%%%%%%%%%%%%% called when component is unmount in student component')}
-  // },[]);
-
-  // useEffect(()=>{
-  //   return ()=> clearInterval(timer);
-  // })
-
-  useEffect(()=>{
-    return ()=> clearInterval(timer);
-  }, [])
+// To access a DOM element directly.
+  const [data, setData] = useState('');
+  const inputElemnt = useRef<TextInput>(null);
+  const handlePress = ()=>{
+    // console.log('inputElemnt :- ',inputElemnt.current);
+    if (inputElemnt.current) {
+      // Ensures inputElemnt.current is not null before using it
+      inputElemnt.current.focus();
+      inputElemnt.current.setNativeProps({
+        style: {
+          fontSize: 24,
+          color: 'red',
+          backgroundColor:'pink'
+        },
+      });
+    }
+  }
 
   return(
-    <Text style={{color:'pink', fontSize:20, alignSelf:'center', marginTop:30}}>
-      Student Component
-    </Text>
-  )
+    <View>
+      <TextInput placeholder='Enter Your Name' onChangeText={(text)=> setData(text)} style={{borderWidth:2, margin:10, borderColor:'white', }} ref={inputElemnt} />
+      {data !== ''? <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>Name :- {data}</Text>:null}
+      <View style={[data !== ''?{marginTop:10}:{marginTop:10},{marginHorizontal:15}]}>
+        <Button title='Press To Change Style of Input Box' onPress={handlePress} />
+      </View>
+
+    </View>
+  );
+
+
 }
+
+
