@@ -1,63 +1,59 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Button, View,Text, TextInput } from 'react-native'
+import NavBar from './Components/NavBar'
 
 export default function App() {
 
-  /* useRef
-  Note :- 1) It create a mutable variable which will not re-render the components.
-          2) To access a DOM element directly.
-          3) UseEffect Hook is callled every time as component is update, state is updated or props are updated in the component.
-          4) We can also change the value of text input using useRef hook.
-          5) Always use useState to update styles and if it is not possible to do this then use useRef hook to update the style.
-          6) useRef hook must be the last option to change the style of element.
+  /* useCallback Hook
+  Note :- 1) The useCallback hook is a React hook that allows you to cache a function and return a memoized version of it. This can be  
+          used to optimize performance in React Native apps by avoiding unnecessary re-renders. It is similar to the useMemo hook but instead of returning a value, it returns a function.
+          2) The useCallback hook takes two arguments: a function and an array of dependencies. The function is the callback that is memoized and the array of dependencies is used to determine when the memoized version of the callback should be recreated.
+          3) The useCallback hook should be used when you need to memoize a callback function that is used multiple times. This can be used to optimize performance in React Native apps by avoiding unnecessary re-renders.
+          4) In another word, if we apply use callback hook to a function then it will freez the re-rendering of this function and if we pass any element in the array in callback hook then it will only be render that elemnt has update and other case it will be freezed.
+          5) If we pass any function as prop to component then it would be always different from the previous function even if we have not updated the function. So, the component is re-render everytime where we have used function as it's prop of the component.
+          6) When the UI is re-render then function are re-created. This phenomena is called as referential equality in React JS.
+          7) We can stop re-rendring of component if noting is updated i.e props using memo function with the class name.
   */
 
-//   // It create a mutable variable which will not re-render the components.
-//   const [data, setData] = useState('');
-//   const count = useRef(0);
-//   // console.log("count value using useRef :- ",count);
-//   useEffect(()=>{
-//     count.current = count.current+1;
-//   })
+  const [count, setCount] = useState(0);
+  const [adjective, setAdjective] = useState("Good");
+  
+  // function updateAdjective (){
+  //   return "Very Good";
+  // }
 
-//   return (
-//     <View>
-//       <TextInput placeholder='Enter Your Name' value={data} onChangeText={(text)=> setData(text)} style={{borderWidth:2, margin:10, borderColor:'white'}} />
-//       {data !== ''? <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>Name :- {data}</Text>:null}
-//       <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>How many time UI is re-render :- {count.current}</Text>
-//     </View>
-//   )
+  const updateAdjective =  useCallback(()=>{
+    return "Very Good";
+  },[]); // if we pass count in the array then <Nav /> component will also be re-render for count update and if we do not write count then will not be re-render for count update.
 
+  return (
 
-// To access a DOM element directly.
-  const [data, setData] = useState('');
-  const inputElemnt = useRef<TextInput>(null);
-  const handlePress = ()=>{
-    // console.log('inputElemnt :- ',inputElemnt.current);
-    if (inputElemnt.current) {
-      // Ensures inputElemnt.current is not null before using it
-      inputElemnt.current.focus();
-      inputElemnt.current.setNativeProps({
-        style: {
-          fontSize: 24,
-          color: 'red',
-          backgroundColor:'pink'
-        },
-      });
-    }
-  }
-
-  return(
     <View>
-      <TextInput placeholder='Enter Your Name' onChangeText={(text)=> setData(text)} style={{borderWidth:2, margin:10, borderColor:'white', }} ref={inputElemnt} />
-      {data !== ''? <Text style={{marginTop:10, color:'white', fontSize:24, marginLeft:5}}>Name :- {data}</Text>:null}
-      <View style={[data !== ''?{marginTop:10}:{marginTop:10},{marginHorizontal:15}]}>
-        <Button title='Press To Change Style of Input Box' onPress={handlePress} />
+      <View style={{margin:15}}>
+      {/* <NavBar adjective ={adjective} /> */}
+        <NavBar adjective ={adjective} setAdjective={setAdjective} updateAdjective={updateAdjective} />
+      </View>
+
+      <View style={{margin:15}}>
+        <Text style={{fontSize:20, marginBottom:10}}>Count :- {count}</Text>
+        <Button title='Increase Counter' onPress={()=>setCount(count+1)}/>
+      </View>
+
+      <View style={{margin:15}}>
+        <Text style={{fontSize:20, marginBottom:10}}>Adjective :- {adjective}</Text>
+        <Button title='Increase Counter' onPress={()=> {
+        if(adjective === 'Good'){
+            setAdjective('Bad')
+        }
+        else{
+            setAdjective('Good')
+        }
+      }}/>
       </View>
 
     </View>
-  );
 
+  );
 
 }
 
