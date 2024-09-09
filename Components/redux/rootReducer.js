@@ -6,7 +6,7 @@ import reducer from './reducer';
     import userReducer from './userReducer';
 */
 
-combineReducers({
+export default combineReducers({
     reducer,
     // userReducer, and so on... if we have more reducer in your App. 
 })
