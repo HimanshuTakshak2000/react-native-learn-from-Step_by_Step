@@ -1,4 +1,4 @@
-import {ADD_TO_CART} from './constant';
+import {ADD_TO_CART, REMOVE_FROM_CART} from './constant';
 const initialState = [];
 
 export default reducer = (state=initialState, action)=>{
@@ -8,6 +8,13 @@ export default reducer = (state=initialState, action)=>{
                 ...state,
                 action.data
             ]
+
+        case REMOVE_FROM_CART:
+            const result = state.filter(item => item.id !== action.data);
+            return [
+                ...result
+            ]
+
         default:
             return state
     }
