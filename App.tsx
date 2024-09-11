@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 
 interface Get {
   id: number;
@@ -28,21 +28,26 @@ export default function App() {
     getAPIData();
   },[]);
 
+  function renderItem({item}:any){
+    return (
+      <View style={{padding:10, borderBottomColor:'white', borderBottomWidth:1, marginBottom:15}}>
+        <Text style={{fontSize:20, backgroundColor:'gray', padding:10,marginBottom:10,textAlign:'center' }}>id :- {item.id}</Text>
+        <Text style={{fontSize:20 }}>Title :- {item.title}</Text>
+        <Text style={{fontSize:20,marginBottom:10 }}>Body :- {item.body}</Text>
+      </View>
+    )
+  }
+
   return(
     <View style={{flex:1}}>
       <Text style={{fontSize:25, padding:10, backgroundColor:'skyblue',marginBottom:8}}>User List From API :- </Text>
-      <ScrollView>
+      
       {
         data?
-        data.map((item:any)=> <View key={item.id} style={{padding:15, borderBottomColor:"gray", borderBottomWidth:1,marginBottom:10}}>
-          <Text style={{fontSize:20,backgroundColor:'white',color:'black',textAlign:'center',padding:8,marginBottom:14}}>id :- {item.id}</Text>
-          <Text style={{fontSize:20}}>Title :- {item.title}</Text>
-          <Text style={{fontSize:20, marginBottom:10}}>Body :- {item.body}</Text>
-
-        </View>)
+        <FlatList data={data} renderItem={renderItem}/>
         :null
       }
-      </ScrollView>
+      
     </View>
   )
   
