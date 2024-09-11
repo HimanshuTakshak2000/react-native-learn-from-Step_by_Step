@@ -1,25 +1,46 @@
-import React from 'react';
-import HomeScreen from './Screen/Home';
-import UserScreen from './Screen/User'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 
-const Stack = createNativeStackNavigator();
+interface Get {
+  id: number;
+  title: string;
+  body: string;
+}
+
+
 export default function App() {
 
-  /* Redux :- 
-  Note :- 1) We have to install 3 packages i.e redux, react-redux and @reduxjs/toolkit to start with redux in react-native.
-          2) 
+  /* API Calling :- 
+  Note :- 1) Get Method
   */
+
+  const [data, setData] = useState<Get| undefined>(undefined);
+
+  const url = "https://jsonplaceholder.typicode.com/posts/1";
+  const getAPIData = async()=>{
+    const response = await fetch(url);
+    const jsonresponse:Get = await response.json();
+    // console.log("data :- ",jsonresponse);
+    setData(jsonresponse);
+  }
+
+  useEffect(()=>{
+    getAPIData();
+  },[]);
+
+  return(
+    <View style={{flex:1}}>
+      {
+        data?
+        <View style={{padding:10}}>
+          <Text style={{fontSize:20}}>id :- {data.id}</Text>
+          <Text style={{fontSize:20}}>Title :- {data.title}</Text>
+          <Text style={{fontSize:20}}>Body :- {data.body}</Text>
+          
+        </View>
+        :null
+      }
+    </View>
+  )
   
- 
-        
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
-        <Stack.Screen name="User" component={UserScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
 }
