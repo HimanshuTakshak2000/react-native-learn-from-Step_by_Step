@@ -1,7 +1,8 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { addToCart, removeFromCart } from './redux/action';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigation } from '@react-navigation/native';
 
 export default function Product({ item }) {
   const dispatch = useDispatch();
@@ -30,9 +31,9 @@ export default function Product({ item }) {
         {
           item.map((each, index) => (
             <View key={each.id} style={{ alignItems: 'center', borderBottomColor: 'orange', borderBottomWidth: 2, marginVertical: 5, padding: 20 }}>
-              <Text>{each.name}</Text>
-              <Text>{each.price}</Text>
-              <Text>{each.color}</Text>
+              <Text style={{color:'black', fontSize:28}}>{each.name}</Text>
+              <Text style={{color:'black', fontSize:20}}>{each.price}</Text>
+              <Text style={{color:'black', fontSize:20}}>{each.color}</Text>
               <Image style={{ height: 100, width: 100, resizeMode: 'contain' }} src={each.img} />
 
               {/* <TouchableOpacity style={{ backgroundColor: 'gray', padding: 10, borderRadius: 10 }} onPress={()=>handleAddToCart(each)}>
