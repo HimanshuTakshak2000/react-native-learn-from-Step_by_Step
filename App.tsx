@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 interface Get {
   id: number;
@@ -11,15 +11,15 @@ interface Get {
 export default function App() {
 
   /* API Calling :- 
-  Note :- 1) Get Method
+  Note :- 1) Get Method and Displaying USer List in scroll-view.
   */
 
-  const [data, setData] = useState<Get| undefined>(undefined);
+  const [data, setData] = useState<Get[]| undefined>(undefined);
 
-  const url = "https://jsonplaceholder.typicode.com/posts/1";
+  const url = "https://jsonplaceholder.typicode.com/posts";
   const getAPIData = async()=>{
     const response = await fetch(url);
-    const jsonresponse:Get = await response.json();
+    const jsonresponse:Get[] = await response.json();
     // console.log("data :- ",jsonresponse);
     setData(jsonresponse);
   }
@@ -30,16 +30,19 @@ export default function App() {
 
   return(
     <View style={{flex:1}}>
+      <Text style={{fontSize:25, padding:10, backgroundColor:'skyblue',marginBottom:8}}>User List From API :- </Text>
+      <ScrollView>
       {
         data?
-        <View style={{padding:10}}>
-          <Text style={{fontSize:20}}>id :- {data.id}</Text>
-          <Text style={{fontSize:20}}>Title :- {data.title}</Text>
-          <Text style={{fontSize:20}}>Body :- {data.body}</Text>
-          
-        </View>
+        data.map((item:any)=> <View key={item.id} style={{padding:15, borderBottomColor:"gray", borderBottomWidth:1,marginBottom:10}}>
+          <Text style={{fontSize:20,backgroundColor:'white',color:'black',textAlign:'center',padding:8,marginBottom:14}}>id :- {item.id}</Text>
+          <Text style={{fontSize:20}}>Title :- {item.title}</Text>
+          <Text style={{fontSize:20, marginBottom:10}}>Body :- {item.body}</Text>
+
+        </View>)
         :null
       }
+      </ScrollView>
     </View>
   )
   
